@@ -11,30 +11,13 @@ import {
   StatsItemStyle,
   SubMenuItemStyle,
   SubMenuStyle,
-  Title,
 } from "./DestinationPageStyles";
 
 const DestinationContent = () => {
-  const [destinationMenu, setDestinationMenu] = useState(dest_data.moon);
+  const [destinationMenu, setDestinationMenu] = useState(dest_data["Moon"]);
 
-  const ChangeDestination = (e) => {
-    switch (e.target.value) {
-      case "MOON":
-        setDestinationMenu(dest_data.moon);
-        break;
-      case "MARS":
-        setDestinationMenu(dest_data.mars);
-        break;
-      case "EUROPA":
-        setDestinationMenu(dest_data.europa);
-        break;
-      case "TITAN":
-        setDestinationMenu(dest_data.titan);
-        break;
-      default:
-        setDestinationMenu(dest_data.moon);
-        break;
-    }
+  const changeDestination = (e) => {
+    setDestinationMenu(dest_data[e.target.value]);
   };
 
   const container = {
@@ -54,10 +37,15 @@ const DestinationContent = () => {
 
   const animateItem = {
     hidden: { opacity: 0, transition: { duration: 0.8 } },
-    visible: { opacity: 1, transition: { duration: 0.8 } },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+      },
+    },
   };
 
-  const destinationItems = ["MOON", "MARS", "EUROPA", "TITAN"];
+  const destinationItems = ["Moon", "Mars", "Europa", "Titan"];
 
   return (
     <DestinationContentStyle>
@@ -70,6 +58,14 @@ const DestinationContent = () => {
           initial="hidden"
           animate="visible"
           exit="hidden"
+          whileHover={{
+            y: ["0%", "-10%", "0%"],
+            transition: {
+              duration: 4,
+              repeat: Infinity,
+              repeatDelay: 0,
+            },
+          }}
         />
       </AnimatePresence>
       <DestinationText>
@@ -79,12 +75,12 @@ const DestinationContent = () => {
               <SubMenuItemStyle key={`submenuitem-${item}`}>
                 <button
                   className={`subNavText ${
-                    destinationMenu.title === item ? "active" : ""
+                    item === destinationMenu.title ? "active" : ""
                   }`}
                   value={item}
-                  onClick={ChangeDestination}
+                  onClick={changeDestination}
                 >
-                  {item}
+                  {item.toUpperCase()}
                 </button>
               </SubMenuItemStyle>
             );
@@ -98,7 +94,7 @@ const DestinationContent = () => {
             exit="hidden"
             key={`container-${destinationMenu.title}`}
           >
-            <Title>{destinationMenu.title}</Title>
+            <h2>{destinationMenu.title.toUpperCase()}</h2>
             <Description>{destinationMenu.desc}</Description>
             <Line />
             <Stats>
