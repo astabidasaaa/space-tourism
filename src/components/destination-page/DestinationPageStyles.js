@@ -18,22 +18,18 @@ export const SubMenuItemStyle = styled.div(() => [
 ]);
 
 export const DestinationText = styled(motion.div)(() => [
-  tw`flex flex-col justify-start items-start sm:px-[60px] lg:px-0 lg:max-w-[445px]`,
+  tw`flex flex-col justify-start items-start sm:px-[60px] lg:px-0 lg:max-w-[445px] text-center lg:text-left`,
 ]);
 
-export const Title = styled.h2(() => [tw`text-center lg:text-left`]);
-
 export const Description = styled.p(() => [
-  tw`text-center sm:mt-[8px] lg:text-left lg:mt-[14px] lg:mb-[54px]`,
+  tw`sm:mt-[8px] lg:mt-[14px] lg:mb-[54px]`,
 ]);
 
 export const Stats = styled.div(() => [
   tw`flex flex-col gap-[32px] justify-between items-center w-full sm:flex-row sm:gap-0`,
 ]);
 
-export const StatsItemStyle = styled.div(() => [
-  tw`w-1/2 text-center lg:text-left`,
-]);
+export const StatsItemStyle = styled.div(() => [tw`w-1/2`]);
 
 export const Line = styled.hr(() => [
   tw`w-full h-[1px] border-0 bg-[var(--lineColor)] my-[32px] sm:mt-[50px] sm:mb-[28px] lg:my-[16px]`,
