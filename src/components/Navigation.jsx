@@ -61,7 +61,7 @@ const Navigation = () => {
               activeClassName="active"
               onClick={toggleNav}
             >
-              <MenuNumber className="navText">{`0${i}`}</MenuNumber>
+              <MenuNumber>{`0${i}`}</MenuNumber>
               {menuItem.title}
             </Link>
           </MenuItemStyle>
