@@ -54,6 +54,7 @@ const DestinationContent = () => {
           src={destinationMenu.image}
           alt={destinationMenu.title}
           key={`image-${destinationMenu.title}`}
+          className="grab"
           variants={animateItem}
           initial="hidden"
           animate="visible"
@@ -66,6 +67,9 @@ const DestinationContent = () => {
               repeatDelay: 0,
             },
           }}
+          drag
+          dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
+          // dragSnapToOrigin
         />
       </AnimatePresence>
       <DestinationText>
