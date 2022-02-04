@@ -12,20 +12,15 @@ const IndexPage = () => {
   const [landscapeOrPortrait, setLandscapeOrPortrait] = useState();
 
   useEffect(() => {
-    const updateWindowDimensions = (screenSize) => {
-      const isMoreThan1024px = screenSize > 1024 ? true : false;
-      setLandscapeOrPortrait(isMoreThan1024px);
+    const updateWindowDimensions = () => {
+      setLandscapeOrPortrait(window.innerWidth > 1024);
     };
 
-    updateWindowDimensions(window.innerWidth);
-    window.addEventListener("resize", () =>
-      updateWindowDimensions(window.innerWidth)
-    );
+    updateWindowDimensions();
 
-    return () =>
-      window.removeEventListener("resize", () =>
-        updateWindowDimensions(window.innerWidth)
-      );
+    window.addEventListener("resize", updateWindowDimensions);
+
+    return () => window.removeEventListener("resize", updateWindowDimensions);
   }, []);
 
   const container = {
