@@ -1,56 +1,107 @@
-import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import {
+  CrewContentStyle,
+  CrewDesc,
+  CrewImage,
+  CrewText,
+  CrewTitle,
+  ImageContainer,
+  SubMenuItemStyle,
+  SubMenuStyle,
+} from "./CrewPageStyles";
 import { crew_data } from "./crew_data";
-import tw, { styled } from "twin.macro";
 
-const CrewContentStyle = styled.div(() => [
-  tw`relative flex flex-col flex-grow justify-start items-center w-full gap-[32px] sm:gap-[40px] lg:flex-row sm:justify-between lg:items-start`,
-]);
-
-const ImageContainer = styled.div(() => [
-  tw`box-border h-[223px] w-full flex flex-col justify-center items-center border-b-[1px] border-[var(--lineColor)] sm:order-2 sm:h-[532px] sm:border-0 lg:h-full lg:absolute lg:right-[-100px] lg:w-[616px] z-[-1]`,
-]);
-
-const CrewImage = styled.img(() => [tw`h-full lg:h-[120%]`]);
-
-const CrewText = styled.div(() => [
-  tw`flex flex-col justify-center items-center gap-[32px] text-center sm:px-[30px] sm:order-1 lg:items-start lg:text-left lg:p-0 lg:w-max lg:gap-[88px]`,
-]);
-
-const SubMenuStyle = styled.div(() => [
-  tw`flex gap-[16px] flex-row justify-center items-center sm:order-2 lg:gap-[24px] lg:mb-[64px]`,
-]);
-
-const SubMenuItemStyle = styled.button(({ isActive }) => [
-  tw`flex w-[10px] h-[10px] bg-[var(--white)] opacity-20 rounded-full hover:opacity-50 lg:w-[15px] lg:h-[15px]`,
-  isActive && tw`opacity-100 hover:opacity-100`,
-]);
-
-const CrewTitle = styled.h4(() => [
-  tw`opacity-50 mb-[8px] lg:mb-[15px] lg:mt-[94px]`,
-]);
-
-const CrewDesc = styled.p(() => [
-  tw`mt-[16px] lg:mt-[27px] lg:max-w-[444px] lg:min-h-[160px]`,
-]);
+const crewItems = [
+  "Douglas Hurley",
+  "Mark Shuttleworth",
+  "Victor Glover",
+  "Anousheh Ansari",
+];
 
 const CrewContent = () => {
   const [crewMenu, setCrewMenu] = useState(crew_data["Douglas Hurley"]);
+  const [crewName, setCrewName] = useState("Douglas Hurley");
 
+  // handleclick button
   const changeCrew = (e) => {
-    setCrewMenu(crew_data[e.target.value]);
+    setCrewName(e.target.value);
   };
 
-  const crewItems = [
-    "Douglas Hurley",
-    "Mark Shuttleworth",
-    "Victor Glover",
-    "Anousheh Ansari",
-  ];
+  useEffect(() => {
+    setCrewMenu(crew_data[crewName]);
+    setSlideIndex(crewItems.indexOf(crewName));
+  }, [crewName]);
+
+  const [slideIndex, setSlideIndex] = useState(crewItems.indexOf(crewName));
+
+  useEffect(() => {
+    // console.log(slideIndex);
+    setCrewName(crewItems[slideIndex]);
+  }, [slideIndex]);
+
+  const handleSlide = (offset) => {
+    // console.log(offset);
+    if (offset > 100) {
+      nextOrPrev(slideIndex + 1);
+    }
+
+    if (offset < -100) {
+      nextOrPrev(slideIndex - 1);
+    }
+  };
+
+  const nextOrPrev = (n) => {
+    if (n > crewItems.length - 1) {
+      setSlideIndex(0);
+    } else if (n < 0) {
+      setSlideIndex(crewItems.length - 1);
+    } else {
+      setSlideIndex(n);
+    }
+  };
+
+  const container = {
+    hidden: {
+      opacity: 0,
+      transition: {
+        duration: 0.1,
+      },
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.4,
+        delay: 0.8,
+      },
+    },
+  };
+
+  const animateItem = {
+    hidden: { y: "100%", transition: { duration: 0.4 } },
+    visible: {
+      y: "0%",
+      transition: {
+        duration: 0.4,
+        delay: 0.5,
+      },
+    },
+  };
 
   return (
     <CrewContentStyle>
       <ImageContainer>
-        <CrewImage src={crewMenu.image} alt={crewMenu.name} />
+        <AnimatePresence exitBeforeEnter>
+          <CrewImage
+            src={crewMenu.image}
+            alt={crewMenu.name}
+            key={`image-${crewMenu.name}`}
+            variants={animateItem}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          />
+        </AnimatePresence>
       </ImageContainer>
       <CrewText>
         <SubMenuStyle>
@@ -65,14 +116,29 @@ const CrewContent = () => {
             );
           })}
         </SubMenuStyle>
-        <div>
-          <CrewTitle>{crewMenu.title.toUpperCase()}</CrewTitle>
-          <h3>{crewMenu.name.toUpperCase()}</h3>
-          <CrewDesc>{crewMenu.desc}</CrewDesc>
-        </div>
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key={`container-${crewMenu.name}`}
+            className="grab"
+            variants={container}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            drag="x"
+            dragConstraints={{ left: -100, right: 100 }}
+            dragSnapToOrigin
+            onDragEnd={(event, info) => handleSlide(info.offset.x)}
+          >
+            <CrewTitle>{crewMenu.title.toUpperCase()}</CrewTitle>
+            <h3>{crewMenu.name.toUpperCase()}</h3>
+            <CrewDesc>{crewMenu.desc}</CrewDesc>
+          </motion.div>
+        </AnimatePresence>
       </CrewText>
     </CrewContentStyle>
   );
 };
 
 export default CrewContent;
+
+// handleSlide(info.offset.x);
