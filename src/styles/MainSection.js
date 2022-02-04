@@ -1,7 +1,7 @@
 import tw, { styled, css } from "twin.macro";
 
 export const MainSection = styled.section(({ page }) => [
-  tw`box-border w-full h-full flex items-center justify-between flex-col flex-nowrap flex-grow`,
+  tw`box-border w-full h-full flex items-center justify-between flex-col flex-nowrap flex-grow overflow-hidden`,
   page === "home" &&
     tw` lg:items-end lg:justify-between lg:flex-row pt-[112px] pb-[48px] px-[24px] sm:pt-[200px] sm:pb-[90px] sm:px-[160px] lg:px-[160px] lg:pt-[160px] lg:pb-[132px]`,
   page === "destination" &&
