@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import {
   ExploreButton,
   HomeText,
@@ -40,6 +41,7 @@ const IndexPage = () => {
 
   return (
     <MainSection page="home">
+      <Helmet title="Space Tourism by sngkr" />
       <BackgroundImg
         backgroundImage={landscapeOrPortrait ? homeBgLandscape : homeBgPortrait}
       />
