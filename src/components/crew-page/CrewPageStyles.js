@@ -12,7 +12,7 @@ export const ImageContainer = styled.div(() => [
 export const CrewImage = styled(motion.img)(() => [tw`h-full`]);
 
 export const CrewText = styled.div(() => [
-  tw`flex flex-col justify-center items-center gap-[32px] text-center sm:px-[30px] sm:order-1 lg:items-start lg:text-left lg:p-0 lg:w-max lg:gap-[88px]`,
+  tw`flex flex-col justify-center items-center gap-[32px] text-center sm:px-[44px] sm:order-1 lg:items-start lg:text-left lg:p-0 lg:w-max lg:gap-[88px]`,
 ]);
 
 export const SubMenuStyle = styled.div(() => [
