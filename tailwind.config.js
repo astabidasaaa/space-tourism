@@ -7,6 +7,10 @@ module.exports = {
         secondary: "var(--paleBlue)",
         tertiary: "var(--white)",
       },
+      colors: {
+        white: "var(--white)",
+        dark: "var(--darkBlue)",
+      },
     },
   },
   plugins: [],

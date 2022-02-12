@@ -7,6 +7,9 @@ import "@fontsource/barlow-condensed/400.css";
 import "@fontsource/barlow-condensed/400-italic.css";
 import "@fontsource/bellefair";
 
+// sm: min-width 640px
+// lg: min-width 1024px
+
 const CustomStyles = createGlobalStyle`
   :root {
     --darkBlue: #0B0D17;
@@ -63,6 +66,7 @@ const CustomStyles = createGlobalStyle`
     min-height: 100vh;
     background-color: var(--darkBlue);
     overflow: overlay;
+    color: var(--white);
   }
 
   body > div:first-child {
@@ -102,7 +106,7 @@ const CustomStyles = createGlobalStyle`
 const Typography = createGlobalStyle`
   h1, h2, h3, h4, .subH1 {
       font-family: var(--bellefair);
-      color: var(--white);
+      color: inherit;
   }
 
   h1 {
@@ -261,11 +265,19 @@ const Typography = createGlobalStyle`
     }
   }
 
-  .subNavText {
+  .subNavText, .tech-title { 
     font-size: 14px;
     line-height: 17px;
     letter-spacing: 2.35px;
 
+    @media screen and (min-width: 640px) {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 2.7px;
+    }
+  }
+
+  .subNavText {
     &:after {
       position: absolute;
       bottom: 0;
@@ -302,15 +314,9 @@ const Typography = createGlobalStyle`
         transition: width 0.4s ease-in-out;
       }
     }
-
-    @media screen and (min-width: 640px) {
-      font-size: 16px;
-      line-height: 19px;
-      letter-spacing: 2.7px;
-    }
   }
 
-  h5, .subH2, .navText, .subNavText, a {
+  h5, .subH2, .navText, .subNavText, .tech-title, a {
     color: var(--white);
     font-family: var(--barlowCondensed);
   }
