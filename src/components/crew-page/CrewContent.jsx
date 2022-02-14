@@ -36,12 +36,10 @@ const CrewContent = () => {
   const [slideIndex, setSlideIndex] = useState(crewItems.indexOf(crewName));
 
   useEffect(() => {
-    // console.log(slideIndex);
     setCrewName(crewItems[slideIndex]);
   }, [slideIndex]);
 
   const handleSlide = (offset) => {
-    // console.log(offset);
     if (offset > 100) {
       nextOrPrev(slideIndex + 1);
     }
@@ -140,5 +138,3 @@ const CrewContent = () => {
 };
 
 export default CrewContent;
-
-// handleSlide(info.offset.x);
